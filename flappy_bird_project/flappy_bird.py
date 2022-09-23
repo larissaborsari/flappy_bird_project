@@ -41,6 +41,28 @@ class Passaro:
         self.contagem_imagem = 0
         self.imagem = IMGS[0]
 
+    #função que define o pulo
+    def pular(self):
+        self.velocidade = -10.5
+        self.tempo = 0
+        self.altura = self.y
+
+    #função que define o movimento
+    def mover(self):
+        #calcular o deslocamento
+        self.tempo += 1
+        deslocamento = 1.5 * (self.tempo**2) + self.velocidade * self.tempo #fórmula do deslocamento
+
+        #restringir o deslocamento
+        if deslocamento > 16:
+            deslocamento = 16
+        elif deslocamento < 0: 
+            deslocamento -=2 #impulsionando o pulo
+        
+
+        #angulo do objeto
+
+
 
 class Cano:
     pass
