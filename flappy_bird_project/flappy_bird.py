@@ -39,7 +39,7 @@ class Passaro:
         self.altura = self.y
         self.tempo = 0
         self.contagem_imagem = 0
-        self.imagem = IMGS[0]
+        self.imagem = self.IMGS[0]
 
     #função que define o pulo
     def pular(self):
@@ -59,8 +59,37 @@ class Passaro:
         elif deslocamento < 0: 
             deslocamento -=2 #impulsionando o pulo
         
-
+        self.y += deslocamento
+        
         #angulo do objeto
+        if deslocamento < 0 or self.y < (self.altura + 50):
+            if self.angulo < self.ROTACAO_MAXIMA:
+                self.angulo = self.ROTACAO_MAXIMA
+        else:
+            self.angulo > -90:
+            self.angulo -= self.VELOCIDADE_ROTACAO
+    
+    #função que desenha o pássaro
+    def desenhar(self):
+        #definir qual imagem será usada
+        self.contagem_imagem = 1
+        if self.contagem_imagem < self.TEMPO_ANIMACAO:
+            self.imagem = self.IMGS[0]
+        elif self.contagem_imagem < self.TEMPO_ANIMACAO*2:
+            self.imagem = self.IMGS[1]
+        elif self.contagem_imagem < self.TEMPO_ANIMACAO*3:
+            self.imagem = self.IMGS[2]
+        elif self.contagem_imagem < self.TEMPO_ANIMACAO*4:
+            self.imagem = self.IMGS[1]
+        elif self.contagem_imagem < self.TEMPO_ANIMACAO*4 + 1:
+            self.imagem = self.IMGS[0]
+            self.contagem_imagem = 0
+
+        #imagem fixa quando o passaro cai
+        if self.angulo <= -80:
+            self.imagem = self.IMGS[1]
+            self.contagem_imagem = self.TEMPO_ANIMACAO*2
+        #desenhar a imagem
 
 
 
