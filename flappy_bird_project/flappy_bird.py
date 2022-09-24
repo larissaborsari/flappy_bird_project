@@ -1,6 +1,7 @@
 #Recriando o jogo
 
 ##Importações necessárias
+from calendar import c
 from re import X
 import pygame
 import os
@@ -113,6 +114,21 @@ class Cano:
         self.pos_base = 0
         self.CANO_TOPO = pygame.transform.flip(IMAGEM_CANO, False, True)
         self.CANO_BASE = IMAGEM_CANO
+        self.passou = False
+        self.definir_altura()
+
+    def definir_altura(self):
+        self.altura = random.randrange(50, 450)
+        self.pos_topo =  self.altura - self.CANO_TOPO.get_height()
+        self.pos_base = self.altura + self.DISTANCIA
+
+    def mover(self):
+        self.x -= self.VELOCIDADE
+
+    def desenhar(self, tela):
+        tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
+        tela.blit(self.CANO_BASE, (self.x, self.pos_base))
+
 
 class Chao:
     pass
