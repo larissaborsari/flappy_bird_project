@@ -129,6 +129,16 @@ class Cano:
         tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
         tela.blit(self.CANO_BASE, (self.x, self.pos_base))
 
+    def colidir(self, passaro):
+        passaro_mask = passaro.get_mask()
+        topo_mask = pygame.mask.from_surface(self.CANO_TOPO)
+        base_mask = pygame.mask.from_surface(self.CANO_BASE)
+
+        distancia_topo = (self.x - passaro.x, self.pos_topo - round(passaro.y))
+        distancia_base = (self.x - passaro.x, self.pos_base - round(passaro.y))
+        
+
+
 
 class Chao:
     pass
