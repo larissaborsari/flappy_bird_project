@@ -184,6 +184,43 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
     pygame.display.update()
 
 
+def main():
+    passaros = [Passaro(230, 350)]
+    chao = Chao(730)
+    canos = [Cano(700)]
+    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
+    pontos = 0
+    relogio = pygame.time.Clock()
+
+    rodando = True
+
+    while rodando: 
+        relogio.tick(30)
+
+        #interação com o usuário
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
+                pygame.quit()
+                quit()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_SPACE:
+                    for passaro in passaros:
+                        passaro.pular()
+
+        #movimento das coisas
+        for passaro in passaros:
+            passaro.mover()
+        chao.mover()
+        for cano in canos:
+            cano.mover()
+        
+        
+        desenhar_tela(tela, passaros, canos, chao, pontos)
+
+
+
+
         
 
 
