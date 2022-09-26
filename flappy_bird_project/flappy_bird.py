@@ -110,7 +110,7 @@ class Passaro:
 
 class Cano:
     DISTANCIA = 200
-    VELOCIDADE = 5
+    VELOCIDADE = 10
 
     def __init__(self, x):
         self.x = x
@@ -126,6 +126,9 @@ class Cano:
         self.altura = random.randrange(50, 450)
         self.pos_topo =  self.altura - self.CANO_TOPO.get_height()
         self.pos_base = self.altura + self.DISTANCIA
+        
+        
+
 
     def mover(self):
         self.x -= self.VELOCIDADE
@@ -133,6 +136,9 @@ class Cano:
     def desenhar(self, tela):
         tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
         tela.blit(self.CANO_BASE, (self.x, self.pos_base))
+        tela.blit(self.CANO_TOPO, ((self.x + 100), self.pos_topo))
+        tela.blit(self.CANO_BASE, ((self.x + 100), self.pos_base))
+        
 
     def colidir(self, passaro):
         passaro_mask = passaro.get_mask()
@@ -141,11 +147,15 @@ class Cano:
 
         distancia_topo = (self.x - passaro.x, self.pos_topo - round(passaro.y))
         distancia_base = (self.x - passaro.x, self.pos_base - round(passaro.y))
+        distancia_topo2 = ((self.x + 100) - passaro.x, self.pos_topo - round(passaro.y))
+        distancia_base2 = ((self.x + 100) - passaro.x, self.pos_base - round(passaro.y))
 
         topo_ponto = passaro_mask.overlap(topo_mask, distancia_topo)
         base_ponto = passaro_mask.overlap(base_mask, distancia_base)
+        topo_ponto2 = passaro_mask.overlap(topo_mask, distancia_topo2)
+        base_ponto2 = passaro_mask.overlap(base_mask, distancia_base2)
 
-        if base_ponto or topo_ponto: #se algum dos pontos de colisão é verdadeiro
+        if base_ponto or topo_ponto or base_ponto2 or topo_ponto2: #se algum dos pontos de colisão é verdadeiro
             return True
         else:
             return False
