@@ -148,7 +148,18 @@ class Cano:
 
 class Chao:
     VELOCIDADE = 5
-    LARGURA = 
+    LARGURA = IMAGEM_CHAO.get_width()
+    IMAGEM = IMAGEM_CHAO
+
+    def __init__ (self, y):
+        self.y = y
+        self.x0 = 0
+        self.x1 = self.LARGURA
+
+    def mover(self):
+        self.x0 -= self.VELOCIDADE
+        
+
 
 
 
