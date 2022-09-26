@@ -212,9 +212,26 @@ def main():
         for passaro in passaros:
             passaro.mover()
         chao.mover()
-        for cano in canos:
-            cano.mover()
         
+        adicionar_cano = False
+        remover_canos = []
+        for cano in canos:
+            for i, passaro in enumerate(passaros):
+                if cano.colidir(passaro):
+                    passaros.pop(i)
+                if not cano.passou and passaro.x > cano.x:
+                    cano.passou = True
+                    adicionar_cano = True
+            cano.mover()
+            if cano.x + cano.CANO_TOPO.get_width() < 0:
+                remover_canos.append(cano)
+
+        if adicionar_cano:
+            pontos += 1
+            canos.append(Cano(600))
+
+        for cano in remover_canos:
+            canos.remove(cano)
         
         desenhar_tela(tela, passaros, canos, chao, pontos)
 
