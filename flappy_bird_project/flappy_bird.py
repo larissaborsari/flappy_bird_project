@@ -6,6 +6,10 @@ from re import X
 import pygame
 import os
 import random
+import neat
+
+ai_jogando = True
+geracao = 0
 
 TELA_LARGURA = 500
 TELA_ALTURA = 800
@@ -180,12 +184,30 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
     
     texto = FONTE_PONTOS.render(f"Pontuação: {pontos}", 1, (255, 255, 255))
     tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))
+    if ai_jogando:
+        texto = FONTE_PONTOS.render(f"Geração: {geracao}", 1, (255, 255, 255))
+        tela.blit(texto, (10, 10))
     chao.desenhar(tela)
     pygame.display.update()
 
 
-def main():
-    passaros = [Passaro(230, 350)]
+def main(genomas, config):
+    global geracao
+    geracao += 1
+    if ai_jogando: 
+        redes = []
+        lista_genomas =[]
+        passaros = []
+        for _, genoma in genomas:
+            rede = neat.nn.FeedForwardNetwork.create(genoma, config)
+            redes.append(rede)
+            genoma.fitness = 0
+            lista_genomas.append(genoma)
+            passaros.append(Passaro(230, 350))
+
+
+    else:
+        passaros = [Passaro(230, 350)]
     chao = Chao(730)
     canos = [Cano(700)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
@@ -245,13 +267,3 @@ def main():
         
 if __name__ == '__main__':
     main()
-
-
-
-
-        
-
-
-
-
-
