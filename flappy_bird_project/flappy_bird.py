@@ -68,7 +68,7 @@ class Passaro:
             if self.angulo < self.ROTACAO_MAXIMA:
                 self.angulo = self.ROTACAO_MAXIMA
         else:
-            self.angulo > -90:
+            self.angulo > -90
             self.angulo -= self.VELOCIDADE_ROTACAO
     
     #função que desenha o pássaro
@@ -100,14 +100,14 @@ class Passaro:
     
     #fazendo a mascara do retangulo com o passaro
     def get_mask(self):
-        pygame.mask.from_surface(self.imagem)
+        return pygame.mask.from_surface(self.imagem)
     
 
 class Cano:
     DISTANCIA = 200
     VELOCIDADE = 5
 
-    def __init__(self), x:
+    def __init__(self, x):
         self.x = x
         self.altura = 0
         self.pos_topo = 0
@@ -161,9 +161,9 @@ class Chao:
         self.x2 -= self.VELOCIDADE
 
         if self.x1 + self.LARGURA < 0:
-            self.x1 = self.x1 + self.LARGURA
+            self.x1 = self.x2 + self.LARGURA
         if self.x2 + self.LARGURA < 0:
-            self.x2 = self.x2 + self.LARGURA
+            self.x2 = self.x1 + self.LARGURA
 
     def desenhar(self, tela):
         tela.blit(self.IMAGEM, (self.x1, self.y))
@@ -233,7 +233,14 @@ def main():
         for cano in remover_canos:
             canos.remove(cano)
         
+        for i, passaro in enumerate(passaros):
+            if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
+                passaros.pop(i)
+
         desenhar_tela(tela, passaros, canos, chao, pontos)
+        
+if __name__ == '__main__':
+    main()
 
 
 
