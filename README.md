@@ -42,7 +42,7 @@ If you're playing manually, press the SPACE key to make the bird jump.
 ## Customizing the NEAT Configuration
 You can fine-tune the NEAT algorithm by modifying the configuration file config.txt. This file includes various parameters that affect how the AI learns and evolves.
 
-Credits
+## Credits
 This project was created by Tech With Tim as a demonstration of implementing NEAT in a popular game. The game assets are derived from the original Flappy Bird game. This is a recreation with learning purpuses. 
 
 This is what the console output looks like
